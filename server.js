@@ -1,6 +1,7 @@
 // server.js
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 const authRoutes = require("./routes/authRoutes");
 const questionRoutes = require("./routes/questionRoutes");
 const answerRoutes = require("./routes/answerRoutes");
@@ -13,6 +14,7 @@ require("dotenv").config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
 
 const PORT = process.env.PORT || 3000;
 
@@ -26,4 +28,8 @@ app.use("/api/access-tokens", accessTokenRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+app.get("/", (req, res) => {
+  res.send("Welcome to the Quiz API");
 });
